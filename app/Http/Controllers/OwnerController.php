@@ -18,7 +18,7 @@ class OwnerController extends Controller
 
  /////// prueba de las estados no eliminar mientras hay produccion de paginas
     public function PRUEBA($value){
-        $countries = new Countries();
+       /* $countries = new Countries();
         $data = $countries->where('name.common',$value)
                     ->first()
                     ->hydrateStates()
@@ -26,12 +26,15 @@ class OwnerController extends Controller
                     ->sortBy('name')
                     ->pluck('name','postal');
 
-     dd($data);
+     dd($data);*/
 
-        $data=Countries::all();
-        $data=$countries->where('name.common',$value)->pluck('cca3');
-        $data=$data->toarray();
-
+     // dd($value);
+        $countries=Countries::all();
+        $data=$countries->where('type.state',$value)
+        ->first()
+        ->hydrate('cities');
+       // $data=$data->toarray();
+        dd($data);
         $dato=$countries->where('cca3',$data[0])
         ->first()
         ->hydrate('cities')->cities->sortBy('name');
@@ -228,9 +231,36 @@ class OwnerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
-    {
-            $Select = $request->get('id');
-            dd($id);
+    {   
+           
+        if($request->ajax()){
+                $id=$request->post('id');
+              // $id=$request->get('id');
+
+                 if($id=='null'){
+                    Alert::warning('Warning', 'Error Owner Data');
+                    return redirect::to('owner/index');
+                 }else{
+
+                       $_token=$request->get('_token');
+                      
+                        //dd($id);
+                       // $token=$request->get('_token');
+                        //dd($id);
+                        $valor=Owner::find($id)->delete();
+                        //dd($package);
+                        //=$package->delete();
+                        //dd($valor);
+                        
+                        Alert::success('Success', 'Owner Delete correctly')->autoClose(1800);
+                        return redirect()->route('indexO');
+                        }
+
+                 }
+
+
+           /* $Select = $request->get('id');
+            dd($Select);
         Alert::warning('Are you sure?', 'Owner Successfully Removed')
         ->footer('<a href> is sure to delete ? </a>')
         ->showConfirmButton('Yes, Delete it!','#3085d6')
@@ -241,7 +271,7 @@ class OwnerController extends Controller
         //$owner->delete();
 
         //Alert::success('Success', 'Owner successfully removed');
-        return redirect::to('owner/index');      
+        return redirect::to('owner/index');   */   
     }
 
     /**

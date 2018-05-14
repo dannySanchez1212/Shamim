@@ -9,6 +9,7 @@
         "fideloper/proxy": "^4.0",
         "greggilbert/recaptcha": "dev-master",
         "laravel/framework": "5.6.*",
+        "laravel/passport": "^6.0",
         "laravel/tinker": "^1.0",
         "pragmarx/countries": "^0.5.8",
         "realrashid/sweet-alert": "^1.1"

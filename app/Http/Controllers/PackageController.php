@@ -114,41 +114,55 @@ class PackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        
-       // Alert::toast('Are you sure?',"You won't be able to revert this!",'warning',true,'#d33','#3085d6','Yes, delete it!');
-        Alert::warning('Are you sure?', 'Package Successfully Removed')
-        ->footer('<a href> is sure to delete ? </a>')
-        ->showConfirmButton('Yes, Delete it!','#3085d6',
-            function(){
-        Alert::success('Success', 'Package successfully removed');})
-        ->showCancelButton('No, Keep it !','#aaa')
-        ->showCloseButton(); 
+      // dd($request);
+               if($request->ajax()){
+                $id=$request->post('id');
+              // $id=$request->get('id');
 
+                 if($id=='null'){
+                    Alert::warning('Warning', 'Error Package Data');
+                    return redirect::to('package/index');
+                 }else{
 
+                       $_token=$request->get('_token');
+                      
+                        //dd($id);
+                       // $token=$request->get('_token');
+                        //dd($id);
+                        $valor=Package::find($id)->delete();
+                        //dd($package);
+                        //=$package->delete();
+                        //dd($valor);
+                        
+                        Alert::success('Success', 'Package Delete correctly')->autoClose(1800);
+                        return redirect()->route('package.index');
+                        }
 
+                 }
 
-
-   /*->then((result){
-                  if (result.value) {
-                       //$package = Package::find($id);
-                       // $package->delete();
-                      Alert::success('Success', 'Package successfully removed')
-
-                      // For more information about handling dismissals please visit
-                      // https://sweetalert2.github.io/#handling-dismissals
-                      }
-                  if (result.dismiss == Alert.DismissReason.cancel){
-                        Alert::success('Success', 'Package successfully removed')
-                      } 
-
-                  
-                     
-                     
-            })*/
-
-       // Alert::success('Success', 'Package successfully removed');        
-        return redirect::to('package/index');
     }
+
+
+
+    /* public function destroyP($id) 
+    {
+      // dd($request);
+               //if($request->ajax()){
+               // $id=$request->post('id');
+                $valor=Package::find($id)->delete();
+              // $id=$request->get('id');
+
+                 if($valor=='null'){
+                    Alert::success('Success', 'Package Delete correctly')->autoClose(1800);
+                    return redirect()->route('package.index');
+                 }else{
+                        Alert::success('Success', 'Package Delete correctly')->autoClose(1800);
+                        return redirect()->route('package.index');
+                        }
+
+                // }
+
+    }*/
 }

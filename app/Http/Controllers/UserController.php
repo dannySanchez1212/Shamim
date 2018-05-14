@@ -161,9 +161,35 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        
+        if($request->ajax()){
+                $id=$request->post('id');
+              // $id=$request->get('id');
+
+                 if($id=='null'){
+                    Alert::warning('Warning', 'Error User Data');
+                    return redirect::to('user/index');
+                 }else{
+
+                       $_token=$request->get('_token');
+                      
+                        //dd($id);
+                       // $token=$request->get('_token');
+                        //dd($id);
+                        $valor=User::find($id)->delete();
+                        //dd($package);
+                        //=$package->delete();
+                        //dd($valor);
+                        
+                        Alert::success('Success', 'User Delete correctly')->autoClose(1800);
+                        return redirect()->route('user.index');
+                        }
+
+                 }
+
+         /*$Select = $request->get('id');
+            dd($Select);
         Alert::warning('Are you sure?', 'User Successfully Removed')
         ->footer('<a href> is sure to delete ? </a>')
         ->showConfirmButton('Yes, Delete it!','#3085d6')
@@ -174,6 +200,6 @@ class UserController extends Controller
         //$user->delete();
 
         //Alert::success('Success', ' successfully removed');
-        return redirect::to('user/index');
+        return redirect::to('user/index');*/
     }
 }

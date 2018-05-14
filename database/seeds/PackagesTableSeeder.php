@@ -16,6 +16,7 @@ class PackagesTableSeeder extends Seeder
         DB::table('packages')->insert([
         	'owner_id'=>$owner_id,
         	'name'=>'PackagesTest',
+            'user_group'=>'1',
         ]);
     }
 }

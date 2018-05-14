@@ -27,7 +27,7 @@ $('.dynamic').change(function () {
 			success:function(result){
 				$('#'+dependent).html(result);
 			}
-		})
+		}) 
 
 	  }
 	  

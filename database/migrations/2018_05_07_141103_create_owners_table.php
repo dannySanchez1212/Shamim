@@ -17,8 +17,9 @@ class CreateOwnersTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('company');
-            $tabel->blob('company_logo');
-            $table->string('email');
+            //$table->blob('company_logo');
+            $table->binary('company_logo');
+            $table->string('email',120);
             $table->string('phone');
             $table->string('address_line1');
             $table->string('address_line2');
@@ -27,6 +28,7 @@ class CreateOwnersTable extends Migration
             $table->string('country');
             $table->string('zip');
             $table->string('updated_by');
+
 
         });
     }

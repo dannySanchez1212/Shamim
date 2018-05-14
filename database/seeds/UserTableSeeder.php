@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
         	'package_id'=>$package_id,
         	'user_type_id'=>$user_type_id,
         	'name'=>$name,
-        	'email'=>'andrecolbe81@gmail.com',
+        	'email'=>'danny5sanchez5@gmail.com',
         	'password'=>bcrypt('12345'),
         ]);
     }

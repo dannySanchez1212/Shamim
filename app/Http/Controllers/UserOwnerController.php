@@ -147,17 +147,37 @@ class UserOwnerController extends Controller
      */
     public function destroy($id)
     {
+          if($request->ajax()){
+                $id=$request->post('id');
+              // $id=$request->get('id');
 
-        Alert::warning('Are you sure?', 'User Owner Successfully Removed')
-        ->footer('<a href> is sure to delete ? </a>')
-        ->showConfirmButton('Yes, Delete it!','#3085d6')
-        ->showCancelButton('No, Keep it !','#aaa')
-        ->showCloseButton(); 
+                 if($id=='null'){
+                    Alert::warning('Warning', 'Error User Owner Data');
+                    return redirect::to('userO/index');
+                 }else{
+
+                       $_token=$request->get('_token');
+                      
+                        //dd($id);
+                       // $token=$request->get('_token');
+                        //dd($id);
+                        $valor=Package::find($id)->delete();
+                        //dd($package);
+                        //=$package->delete();
+                        //dd($valor);
+                        
+                        Alert::success('Success', 'User Owner Delete correctly')->autoClose(1800);
+                        return redirect()->route('userO.index');
+                        }
+
+                 }
+
+           
        // $userO = UserOwner::find($id);
         //$userO->delete();
 
         //Alert::success('Success', ' successfully removed');        
         //Session::flash('message','User Owner successfully removed');
-        return redirect::to('userO/index');
+       // return redirect::to('userO/index');
     }
 }

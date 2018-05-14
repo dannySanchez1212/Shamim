@@ -52,63 +52,38 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
+                             
+                             
                             
                         @else
                             @if(Auth::user()->name=='Owner Admin')
 
                             <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('indexO') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Owner <span class="caret"></span>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('createO') }}">
-                                            Add
-                                        </a>
-                                        <a class="dropdown-item" href="{{ route('indexO') }}">
-                                            Edit
-                                        </a>
-                                    </div>
+                                    </a>                                    
                             </li>
                             <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('package.index') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Packages <span class="caret"></span>
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('package.create') }}">
-                                            Add
-                                        </a>
-                                        <a class="dropdown-item" href="{{ route('package.index') }}">
-                                            Edit
-                                        </a>
-                                    </div>
+                                    
                             </li>
                             <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('user.index') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Users <span class="caret"></span>
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('user.create') }}">
-                                            Add
-                                        </a>
-                                        <a class="dropdown-item" href="{{ route('user.index') }}">
-                                            Edit
-                                        </a>
-                                    </div>
+                                    
                             </li>
                             <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('userO.index') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         Users Owner <span class="caret"></span>
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('userO.create') }}">
-                                            Add
-                                        </a>
-                                        <a class="dropdown-item" href="{{ route('userO.index') }}">
-                                            Edit
-                                        </a>
-                                    </div>
+                                    
                             </li>
+
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -132,12 +107,12 @@
                 </div>
             </div>
         </nav>
+        <li>
         @yield('content')
+        
     </div>
-       
         <script src="{{ asset('js/app.js') }}"></script> 
         <script src="{{ asset('js/jquery.min.js') }}"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
         @yield('scripts')
 </body>

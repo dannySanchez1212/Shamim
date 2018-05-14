@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
 @include('sweetalert::alert')
 <div class="container">
     @if($packages->count())
@@ -27,7 +25,7 @@
                 <td>
                     <a class="btn btn-success"  href="{{ route('package.edit', $package->id) }}" role="button"> Edit </a>
                   <!--  <a class="btn btn-danger" id="destroy"  href="{{ route('package.destroy', $package->id) }}" role="button"> Delete </a> -->
-                    <button class="btn btn-danger" id="boton" type="button">Delete</button>
+                    <button class="btn btn-danger" name="{{  $package->id }}" id="boton" type="button">Delete</button>
                 </td>
             </tr>
             @endforeach  
@@ -46,9 +44,15 @@
             $('#package').DataTable( 
                 {
                 "scrollY": 500,
-                } );
-            
-            $('#boton').on('click', function (event) {                          
+                } ); 
+          } );      
+    </script> 
+    <script type="text/javascript">
+      $(document).on('click','#boton',function(event){
+
+                 var id = $(this).attr("name"); 
+                 var _token = '{{csrf_token()}}';
+                          
                          swal({
                           title: 'Are you sure?',
                           text: "Package Successfully Removed!",
@@ -62,42 +66,28 @@
                           cancelButtonClass: 'btn btn-danger',
                           buttonsStyling: false,
                           reverseButtons: true
-                        }).then((result) => {
+                        }).then(function(result){
                           if (result.value) {
-                                $.ajax({
-                                  url: "/package/destroy",
-                                  type: "POST",
-                                  data:{id: event},
-                                    success:function(result){
-                                        $('#'+dependent).html(result);
-                                    }                                  
-                                });
-                            swal(
-                              'Deleted!',
-                              'Your file has been deleted.',
-                              'success'
-                            )
-                          } else if (
-                            // Read more about handling dismissals
-                            result.dismiss === swal.DismissReason.cancel
-                          ) {
-                            swal(
-                              'Cancelled',
-                              'Your imaginary file is safe :)',
-                              'error'
-                            )
+                           alert('id....'+id+'/token....'+_token);
+                             $.ajax({
+                              url:"/destroyP",
+                              method:"POST",
+                              data:{id:id, _token:_token},
+                              success:function(result){
+
+                                swal({ title:'Deleted!',text:"Package Successfully Removed",type:'success'});
+                                location.reload();
+                              }
+
+                             })
+                           } else if(result.dismiss == swal.DismissReason.cancel){
+                            
+                            swal({ title:'Cancelled',text:"Package Successfully Not Removed",type:'error'});
+                            
                           }
                         })
 
-
-
-            });
-
-            
-
-
-
-
-            } );
-    </script>    
+      });
+         
+    </script>   
 @endsection

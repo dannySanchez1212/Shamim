@@ -14,7 +14,19 @@ class OwnerTableSeeder extends Seeder
     {
         DB::table('owners')->insert([
         	'company'=>'Administradores',
-        	'email'=>'giancolbe@gmail.com',
+        	'email'=>'danny5sanchez5@gmail.com',
+            'company_logo'=>'logo Administradores',
+            'phone'=>'4126464956',
+            'address_line1'=>'oficina 1',
+            'address_line2'=>'oficina 2',
+            'country'=>'venezuela',
+            'state'=>'tachira',
+            'city'=>'san cristobal',
+            'zip'=>'1111111',
+            'updated_by'=>'1',
+            
         ]);
+
+
     }
 }
